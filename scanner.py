@@ -3,8 +3,6 @@ import sys
 import time
 
 
-
- 
 class Scanner:
     
     def __init__(self):
@@ -32,8 +30,10 @@ class Scanner:
         161:"Simple Network Management Protocol (SNMP)",194:"Internet Relay Chat (IRC)",
         443:"HTTP Secure (HTTPS) HTTP over TLS/SSL"}
 
+    
     def scan_common_ports(self):
         '''Scanning common ports'''
+
         start_time=time.perf_counter()
         print('\tScanning Common Ports\t')
         print('---'*15)
@@ -49,6 +49,8 @@ class Scanner:
         end_time=time.perf_counter()
         print('Time taken to scan common ports is: {:.2f} second(s)'.format(end_time-start_time))
 
+    
+    
     def scan_port(self):
         '''Scanning the Ports that are specified'''
 
@@ -71,6 +73,8 @@ class Scanner:
         end_time=time.perf_counter()
         print('Time taken to scan {} is: {:.2f} second(s)'.format(ports,end_time-start_time))
 
+    
+    
     def scan_all_ports(self):
         '''Scanning All the Ports'''
 
@@ -89,15 +93,22 @@ class Scanner:
         end_time=time.perf_counter()
         print('Time taken to scan all ports is: {:.2f} second(s)'.format(end_time-start_time))
     
+    
+    
     def stop_scanner(self):
         '''Closes the Scanner'''
+
         self.scanner.close()
 
 
 
-if __name__=="__main__": 
+
+if __name__=="__main__":
+
     scanner=Scanner()
+
     try:
+
         for option in ['1.Scan All Ports','2.Scan Common Ports','3.Scan Custom Port']:
             print(option)
         opt=int(input('Enter Option Number: '))
@@ -112,6 +123,8 @@ if __name__=="__main__":
 
         else:
             print('Wrong Option Try Again')
+    
     except KeyboardInterrupt:
+    
         scanner.stop_scanner()
         sys.exit(0)
