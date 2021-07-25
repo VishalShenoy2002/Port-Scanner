@@ -18,7 +18,7 @@ class Scanner:
         
         self.scanner=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         print('Started the Scanner Enter the Option Number to Scan or press Ctrl-C to quit')
-        self.host='127.0.0.1'
+        self.host='192.168.0.105'
 
         self.common_ports={20:"File Transfer Protocol (FTP) Data Transfer",21:"File Transfer Protocol (FTP) Command Control",
         22:"Secure Shell (SSH)",23:"Telnet - Remote login service, unencrypted text messages",
@@ -35,7 +35,7 @@ class Scanner:
         '''Scanning common ports'''
 
         start_time=time.perf_counter()
-        print('\tScanning Common Ports\t')
+        print('\n\tScanning Common Ports\t')
         print('---'*15)
         
         for port,info in self.common_ports.items():
@@ -43,6 +43,7 @@ class Scanner:
                 print('Scanning Port {} : {}'.format(port,info))
                 self.scanner.connect((self.host,port))
                 print('Port {} :\tOpen'.format(port))
+                self.stop_scanner()
 
             except Exception:
                 print('Port {} :\tClosed'.format(port))
@@ -55,7 +56,7 @@ class Scanner:
         '''Scanning the Ports that are specified'''
 
         start_time=time.perf_counter()
-        print('\tScanning Custom Ports\t')
+        print('\n\tScanning Custom Ports\t')
         print('---'*15)
 
         print('\nNote:\n Please input all the ports you want to scan with a comma in between them.\n\n')
@@ -66,6 +67,7 @@ class Scanner:
                 print('Scanning Port {}'.format(port))
                 self.scanner.connect((self.host,port))
                 print('Port {} :\tOpen'.format(port))
+                self.stop_scanner()
 
             except Exception:
                 print('Port {} :\tClosed'.format(port))
@@ -79,7 +81,7 @@ class Scanner:
         '''Scanning All the Ports'''
 
         start_time=time.perf_counter()
-        print('\tScanning All Ports\t')
+        print('\n\tScanning All Ports\t')
         print('---'*15)
 
         for port in range(20,130000):
@@ -87,14 +89,14 @@ class Scanner:
                 print('Scanning Port {}'.format(port))
                 self.scanner.connect((self.host,port))
                 print('Port {} :\tOpen'.format(port))
+                self.stop_scanner()
 
             except Exception:
                 print('Port {} :\tClosed'.format(port))
         end_time=time.perf_counter()
         print('Time taken to scan all ports is: {:.2f} second(s)'.format(end_time-start_time))
-    
-    
-    
+
+
     def stop_scanner(self):
         '''Closes the Scanner'''
 
@@ -111,20 +113,64 @@ if __name__=="__main__":
 
         for option in ['1.Scan All Ports','2.Scan Common Ports','3.Scan Custom Port']:
             print(option)
+
         opt=int(input('Enter Option Number: '))
 
+
+        print('Do you want to do Multiple Scans:')
+
+        for option in ['1.Yes','2.No']:
+            print(option)
+
+        multiscan=int(input('Enter Option Number:'))
+
         if opt==1:
-            scanner.scan_all_ports()
+            if multiscan==1:
+                while True:
+                    try:
+                        scanner.scan_all_ports()
+                        time.sleep(10)
+
+                    except KeyboardInterrupt:
+                        print('Stopping Multi Scan as you pressed Ctrl-C')
+                        break
+
+            else:
+                scanner.scan_all_ports()
+
+
         elif opt==2:
-            scanner.scan_common_ports()
+            if multiscan==1:
+                while True:
+                    try:
+                        scanner.scan_common_ports()
+                        time.sleep(10)
+
+                    except KeyboardInterrupt:
+                        print('Stopping Multi Scan as you pressed Ctrl-C')
+                        break
+
+            else:
+                scanner.scan_common_ports()
+
 
         elif opt==3:
-            scanner.scan_port()
+            if multiscan==1:
+                while True:
+                    try:
+                        scanner.scan_port()
+                        time.sleep(10)
+
+                    except KeyboardInterrupt:
+                        print('Stopping Multi Scan as you pressed Ctrl-C')
+                        break
+            else:
+                scanner.scan_port()
 
         else:
             print('Wrong Option Try Again')
     
     except KeyboardInterrupt:
-    
+        print('Exiting Port Scanner')
         scanner.stop_scanner()
         sys.exit(0)
