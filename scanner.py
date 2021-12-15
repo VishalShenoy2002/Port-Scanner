@@ -65,7 +65,7 @@ class Scanner:
         for port in ports.split(','):
             try:
                 print('Scanning Port {}'.format(port))
-                self.scanner.connect((self.host,port))
+                self.scanner.connect((self.host,int(port)))
                 print('Port {} :\tOpen'.format(port))
                 self.stop_scanner()
 
