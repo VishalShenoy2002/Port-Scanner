@@ -40,6 +40,7 @@ class Scanner:
         
         for port,info in self.common_ports.items():
             try:
+                self.scanner=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                 print('Scanning Port {} : {}'.format(port,info))
                 self.scanner.connect((self.host,port))
                 print('Port {} :\tOpen'.format(port))
@@ -64,6 +65,7 @@ class Scanner:
 
         for port in ports.split(','):
             try:
+                self.scanner=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                 print('Scanning Port {}'.format(port))
                 self.scanner.connect((self.host,int(port)))
                 print('Port {} :\tOpen'.format(port))
@@ -86,6 +88,7 @@ class Scanner:
 
         for port in range(20,130000):
             try:
+                self.scanner=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
                 print('Scanning Port {}'.format(port))
                 self.scanner.connect((self.host,port))
                 print('Port {} :\tOpen'.format(port))
