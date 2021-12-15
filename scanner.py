@@ -18,7 +18,7 @@ class Scanner:
         
         self.scanner=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
         print('Started the Scanner Enter the Option Number to Scan or press Ctrl-C to quit')
-        self.host='192.168.0.105'
+        self.host=socket.gethostbyname(socket.gethostname())
 
         self.common_ports={20:"File Transfer Protocol (FTP) Data Transfer",21:"File Transfer Protocol (FTP) Command Control",
         22:"Secure Shell (SSH)",23:"Telnet - Remote login service, unencrypted text messages",
